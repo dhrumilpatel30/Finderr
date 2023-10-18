@@ -14,6 +14,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ProfileImage)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.GroupName)
             </th>
             <th>
@@ -22,15 +25,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProfileImage)
-            </th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="align-middle">
 @foreach (var item in Model) {
         <tr>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.ProfileImage)" height="70" width="70" alt="profileImage" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GroupName)
             </td>
@@ -39,9 +42,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProfileImage)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.GroupId">Edit</a> |

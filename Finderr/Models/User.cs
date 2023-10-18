@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Finderr.Models
 {
-    public class User : IdentityUser
+    public class UserProfile : IdentityUser
     {
         [Required]
         [Column("name", TypeName = "varchar(50)")]
@@ -16,8 +16,8 @@ namespace Finderr.Models
         [Column("current_address", TypeName = "varchar(150)")]
         public string CurrentAddress { get; set; }
         [Required]
-        [Column("profile_privacy", TypeName = "bit")]
-        public bool ProfilePrivacy { get; set; }
+        [Column("profile_privacy", TypeName = "varchar(20)")]
+        public string ProfilePrivacy { get; set; }
         [Required]
         [Column("profile_picture_reference", TypeName = "varchar(150)")]
         public string ProfilePictureReference { get; set; }
@@ -29,12 +29,12 @@ namespace Finderr.Models
         public string? LinkedInLink { get; set; }
 
 
-        public User()
+        public UserProfile()
         {
             Name = "John Doe";
             Occupation = "Not set";
             CurrentAddress = "Not set";
-            ProfilePrivacy = false;
+            ProfilePrivacy = "private";
             ProfilePictureReference = "https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg";
         }
     }

@@ -5,10 +5,6 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "finderr": "StartDebugging"
-      },
-      "environmentVariables": {
-        "EMAIL": "dhrumilp0633@gmail.com",
-        "PASSWORD": "zjkjxulfcjjmdsyb"
       }
     }
   }

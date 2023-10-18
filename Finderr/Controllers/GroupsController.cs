@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Finderr.Data;
+﻿using Finderr.Data;
 using Finderr.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Finderr.Controllers
 {
+    [Authorize]
     public class GroupsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,9 +20,25 @@ namespace Finderr.Controllers
         // GET: Groups
         public async Task<IActionResult> Index()
         {
-              return _context.Group != null ? 
-                          View(await _context.Group.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Group'  is null.");
+            List<Group> groups = new();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId != null)
+            {
+                var userProfile = await _context.UserProfile.Where(u => u.Id == userId).FirstAsync();
+                var groupMembers = await _context.GroupMember.Where(gm => gm.UserProfileId == userProfile.Id).ToListAsync();
+                foreach (var groupMember in groupMembers)
+                {
+                    var groupId = groupMember.GroupId;
+                    var group = await _context.Group.Where(g => g.GroupId == groupId).FirstAsync();
+                    if ("true" == groupMember.IsAdmin)
+                    {
+                        groups.Add(group);
+                    }
+                }
+            }
+            return _context.Group != null ?
+                        View(groups) :
+                        Problem("Entity set 'ApplicationDbContext.Group' is null.");
         }
 
         // GET: Groups/Details/5
@@ -61,6 +75,20 @@ namespace Finderr.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(@group);
+                await _context.SaveChangesAsync();
+                //create group member 
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userProfile = await _context.UserProfile.Where(u => u.Id == userId).FirstAsync();
+                var groupMember = new GroupMember
+                {
+                    GroupId = @group.GroupId,
+                    UserProfileId = userProfile.Id,
+                    IsAdmin = "true",
+                    JoinDate = DateOnly.FromDateTime(DateTime.Now),
+                    UserProfile = userProfile,
+                    Group = @group
+                };
+                _context.Add(groupMember);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -150,14 +178,14 @@ namespace Finderr.Controllers
             {
                 _context.Group.Remove(@group);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GroupExists(string id)
         {
-          return (_context.Group?.Any(e => e.GroupId == id)).GetValueOrDefault();
+            return (_context.Group?.Any(e => e.GroupId == id)).GetValueOrDefault();
         }
     }
 }

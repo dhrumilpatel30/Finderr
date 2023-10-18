@@ -4,11 +4,12 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>922881e6-2f7e-4e58-acf6-1da43cdf84bd</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:8080</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>finderr</DockerServiceName>
     <UserSecretsId>bd1a2413-06b9-48fa-be73-5cf87a286d0c</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Include=".env" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>

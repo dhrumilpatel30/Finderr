@@ -12,19 +12,17 @@ services:
       db:
         condition: service_healthy
     environment:
-        - EMAIL=dhrumilp0633@gmail.com
-        - PASSWORD=zjkjxulfcjjmdsyb
+        - EMAIL=${EMAIL}
+        - PASSWORD=${EMAIL_PASSWORD}
   db:
     image: postgres
     restart: always
     user: postgres
-    secrets:
-      - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=my_db
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     expose:
       - 5432
     healthcheck:
@@ -41,7 +39,4 @@ services:
     - 5000:8080
 volumes:
   db-data:
-secrets:
-  db-password:
-    file: db/password.txt
 

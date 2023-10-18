@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  finderr:
+    image: ${DOCKER_REGISTRY-}finderr
+    build:
+      context: .
+      dockerfile: Finderr/Dockerfile
+    ports:
+        - 8080:80
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+        - EMAIL=dhrumilp0633@gmail.com
+        - PASSWORD=zjkjxulfcjjmdsyb
+  db:
+    image: postgres
+    restart: always
+    user: postgres
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=my_db
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DESIGN: 'pepa-linha-dark'
+    ports:
+    - 5000:8080
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt
+

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finderr", "Finderr\Finderr.csproj", "{BB8C7031-12D3-41E0-9EFE-B1A4A4097627}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{922881E6-2F7E-4E58-ACF6-1DA43CDF84BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB8C7031-12D3-41E0-9EFE-B1A4A4097627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8C7031-12D3-41E0-9EFE-B1A4A4097627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8C7031-12D3-41E0-9EFE-B1A4A4097627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8C7031-12D3-41E0-9EFE-B1A4A4097627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{922881E6-2F7E-4E58-ACF6-1DA43CDF84BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{922881E6-2F7E-4E58-ACF6-1DA43CDF84BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{922881E6-2F7E-4E58-ACF6-1DA43CDF84BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{922881E6-2F7E-4E58-ACF6-1DA43CDF84BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A083C94-DF61-498B-8DA9-736D3FF5A8DD}
+	EndGlobalSection
+EndGlobal

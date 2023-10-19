@@ -14,6 +14,8 @@ Finderr was built using the following technologies:
 - PostgreSQL
 - Entity Framework Core
 - Adminer
+- Identity By dotnet
+- Google OAuth for sign in
 
 
 ## Installation
@@ -26,18 +28,28 @@ To install Finderr, follow these steps:
 ## Usage
 To use Finderr, follow these steps:
 
-1. Sign up for an account or log in if you already have one.
-2. Search for friends by entering a name or location in the search bar.
-3. Connect with friends by sending them a message.
-
 ### Sign Up
 To sign up for an account, click the "Sign Up" button on the homepage and fill out the registration form. Once you have registered, you will be redirected to the homepage.
 
 ### Log In
 To log in to your account, click the "Log In" button on the homepage and enter your email address and password. Once you have logged in, you will be redirected to the homepage.
 
+### Google Sign In
+To sign in with Google, click the "Google" button on the homepage and follow the prompts to sign in with your Google account. Once you have signed in, you will be redirected to the homepage.
+
 ### Search for Friends
-To search for friends, enter a name or location in the search bar on the homepage and click the "Search" button. The search results will be displayed on the page, and you can click on a friend's name to view their profile.
+options for searching for friends:
+1. Name
+2. Location
+3. Occupation
+4. Group Name (School group, college group, etc.)
+
+### Create Groups
+To create a group, click the "Create Group" button on the homepage and fill out the form. Once you have created a group, you will be redirected to the group page.
+
+### Join Groups
+To join a group, tell the admin of the group to add you to the group. Once you have been added to the group, you will be able to see the group on your homepage.
+
 
 
 

@@ -1,0 +1,32 @@
+﻿@model Finderr.Models.UserProfile
+
+<h2>User Profile Details</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>Name:</dt>
+            <dd>@Model.Name</dd>
+            <dt>Occupation:</dt>
+            <dd>@Model.Occupation</dd>
+            <dt>Current Address:</dt>
+            <dd>@Model.CurrentAddress</dd>
+            <dt>Profile Privacy:</dt>
+            <dd>@Model.ProfilePrivacy</dd>
+            <dt>Profile Picture:</dt>
+            <dd>
+                <img src="@Model.ProfilePictureReference" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+            </dd>
+            <dt>Facebook Link:</dt>
+            <dd>@Model.FacebookLink</dd>
+            <dt>Twitter Link:</dt>
+            <dd>@Model.TwitterLink</dd>
+            <dt>LinkedIn Link:</dt>
+            <dd>@Model.LinkedInLink</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="form-group">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+</div>

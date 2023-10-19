@@ -14,5 +14,6 @@ namespace Finderr.Data
         public DbSet<Finderr.Models.UserProfile> UserProfile { get; set; } = default!;
         public DbSet<Finderr.Models.Group> Group { get; set; } = default!;
         public DbSet<Finderr.Models.GroupMember> GroupMember { get; set; } = default!;
+        public DbSet<Finderr.Models.UserProfileTemp> UserProfileTemp { get; set; } = default!;
     }
 }

@@ -116,34 +116,42 @@ namespace Finderr.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("GroupId,GroupName,Description,CreationDate,ProfileImage")] Group @group)
+        public async Task<IActionResult> Edit([Bind("GroupId,GroupName,Description")] Group @group, IFormFile ProfileImage)
         {
-            if (id != @group.GroupId)
+            var groupNew = await _context.Group.FindAsync(@group.GroupId);
+            if (groupNew == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
+                var profileImagePath = "Images/";
+                var uniqueFileName = Guid.NewGuid() + "_" + ProfileImage.FileName;
+                var imagePath = Path.Combine(profileImagePath, uniqueFileName);
+                var imageUrl = Path.Combine("/", imagePath);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
                 {
-                    _context.Update(@group);
-                    await _context.SaveChangesAsync();
+                    await ProfileImage.CopyToAsync(stream);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GroupExists(@group.GroupId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                groupNew.ProfileImage = imageUrl;
+                groupNew.GroupName = @group.GroupName;
+                groupNew.Description = @group.Description;
+                _context.Update(groupNew);
+                await _context.SaveChangesAsync();
             }
-            return View(@group);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GroupExists(@group.GroupId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Groups/Delete/5
@@ -187,5 +195,6 @@ namespace Finderr.Controllers
         {
             return (_context.Group?.Any(e => e.GroupId == id)).GetValueOrDefault();
         }
+
     }
 }
